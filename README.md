@@ -1,0 +1,9 @@
+# RBM
+
+First implementation and Ideas of the Restricted Boltzmann Machine (RBM) algorithm for colaborative filtering. THe goal is to implement a recomendation system for the mensa ratings. However, the training of large and sparse data is a major challenge in this project.
+
+## Files
+
+So far, the file rbm_base.py contains a basic implementation of the RBM algorithm, which can capture different features of training data. Here, it is assumed every user rates every item with either good (1) or bad (0). This works pretty good and doesnt need further efficiency adjustments. Note that, it is still oriented on the paper of Hinton et al. (2010) which introduces different optimization techniques for the code structure for better performance.
+
+Furthermore, the file rbm_single_user_model.py is the beginning of a more complex model, which can handle multiple users and items with rankings between 1 to 5 stars. Furthermore, there is the possibility, that a user only ranks a subset of items, which is needed. There are multiple approaches for this problem, the easiest and most straight-forward one is to assign a individual RBM to every user while the weights of the RBMs are shared. This approach works but is not the most efficient. For this project, it is a reasonable choice, since we dont work with millions of users and items. By now, the code implemented one single user model, which is capable to learn the tendencies of a user. The next step is to implement multiple models with shared weights to make reliable predictions. Furthermore, the code is written on purpose not 100% efficient but rather readable and understandable. There are multiple ways to improve the code, i.e., by increasing the dimension of the weigths rather then looping through the items. However, this is not the main goal of this project. For a reference base implementation see: [RBM Implementation in Python](https://github.com/echen/restricted-boltzmann-machines/blob/master/rbm.py)
