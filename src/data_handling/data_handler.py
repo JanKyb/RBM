@@ -34,8 +34,8 @@ def process_csv(file_path):
             if bits != []:
                 all_ratings.append(bits)
 
-    # Convert to three-dimensional array
-    # all_ratings = np.array(all_ratings)  # (users, ratings, bits)
+    # Note: We return a list-of-lists structure rather than a NumPy array
+    # to preserve the ability to handle variable-length rating sequences per user.
     return all_ratings
 
 def randomly_delete_ratings(data, x):
