@@ -43,7 +43,6 @@ class SingleUserRBM(RBMBase):
             raise ValueError(f"hidden_states must be a numpy array with {self.hidden_units} rows.")
 
         visible_activations = np.tensordot(hidden_states, self.weights, axes=([0], [2])) + self.bias_visible
-        visible_probs = np.zeros((hidden_states.shape[0], self.visible_units))
         visible_probs = np.zeros((self.items, self.rating_options))
         
         for i in range(self.items):

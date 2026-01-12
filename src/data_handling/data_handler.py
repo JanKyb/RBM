@@ -5,14 +5,14 @@ from pathlib import Path
 
 random.seed(0)
 
-# Funktion zum Konvertieren von Rating in 5-Bit-Darstellung
+# Function to convert rating to 5-bit representation
 def rating_to_bits(rating):
     bits = [0] * 5
     if 1 <= rating <= 5:
         bits[rating - 1] = 1
     return bits
 
-# Datei einlesen und Ratings extrahieren
+# Read file and extract ratings
 def process_csv(file_path):
     all_ratings = []
     # Accept Path or str
@@ -20,22 +20,22 @@ def process_csv(file_path):
     if not file_path.exists():
         raise FileNotFoundError(f"CSV file not found: {file_path}")
 
-    # CSV-Datei öffnen
+    # Open CSV file
     with open(file_path, 'r', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
-        next(reader)  # Überspringt die Kopfzeile
+        next(reader)  # Skip the header row
 
         for row in reader:
-            # Ratings extrahieren (alle Werte ab Spalte 2)
+            # Extract ratings (all values from column 2 onwards)
             ratings = row[1:]
-            ratings = [int(r) for r in ratings if r.isdigit()]  # Nur Zahlen berücksichtigen
-            # Ratings in 5-Bit-Darstellung konvertieren
+            ratings = [int(r) for r in ratings if r.isdigit()]  # Only consider numbers
+            # Convert ratings to 5-bit representation
             bits = [rating_to_bits(r) for r in ratings]
             if bits != []:
                 all_ratings.append(bits)
 
-    # Umwandeln in ein dreidimensionales Array
-    #all_ratings = np.array(all_ratings)  # (Benutzer, Bewertungen, Bits)
+    # Note: We return a list-of-lists structure rather than a NumPy array
+    # to preserve the ability to handle variable-length rating sequences per user.
     return all_ratings
 
 def randomly_delete_ratings(data, x):
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     except FileNotFoundError:
         print(f"Default CSV not found at {file_path}. Please provide a valid file path.")
     else:
-        print("Dreidimensionale Struktur der Ratings (Benutzer x Bewertungen x Bits):")
+        print("Three-dimensional structure of ratings (users x ratings x bits):")
         print(binary_ratings)
         updated_data = randomly_delete_ratings(binary_ratings, 2)
         print(updated_data)

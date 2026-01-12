@@ -5,12 +5,16 @@ def plot_errors(test_errors, train_errors):
     Plots the total error and test error over iterations.
     
     Args:
-        test_errors (list of torch.Tensor): List of test errors.
-        train_errors (list of torch.Tensor): List of train errors.
+        test_errors (list): List of test errors (numeric values).
+        train_errors (list): List of train errors (numeric values).
     """
-    # Convert torch tensors to numpy arrays for plotting
-    test_errors_np = [error.item() for error in test_errors]
-    train_errors_np = [error.item() for error in train_errors]
+    def to_float(error):
+        """Convert error value to float, handling objects with .item() method."""
+        return error.item() if hasattr(error, 'item') else float(error)
+    
+    # Convert numeric values to floats for plotting
+    test_errors_np = [to_float(error) for error in test_errors]
+    train_errors_np = [to_float(error) for error in train_errors]
     
     # Create a range for iterations
     iterations = range(1, len(train_errors) + 1)

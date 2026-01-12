@@ -164,11 +164,6 @@ class GlobalRBM(RBMBase):
                     test_error += np.sum((self.test_data[user] - visible_probs[current_test_indices,:]) ** 2) / (self.users * self.rating_options * len(current_test_indices))
                 
                 train_error += np.sum((self.filtered_user_data[user] - visible_probs[current_indices]) ** 2) / (self.users * self.rating_options)
-                
-                # expanded_neg_indices = []
-                # for idx in self.filtered_neg_indices[user]:
-                #     expanded_neg_indices.extend([idx * self.rating_depth + i for i in range(self.rating_depth)])
-                # test_error += np.sum((self.test_data[expanded_neg_indices, user] - visible_probs[:, expanded_neg_indices]) ** 2) / (self.users * len(expanded_neg_indices))
             
             test_error_list.append(np.sqrt(test_error))
             train_error_list.append(np.sqrt(train_error))
